@@ -4,16 +4,16 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class UserModel extends Model
+class DashboardModel extends Model
 {
     protected $DBGroup          = 'default';
-    protected $table            = 'login_reg';
-    protected $primaryKey       = 'id';
+    protected $table            = 'users';
+    protected $primaryKey       = 'u_id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['username', 'password'];
+    protected $allowedFields    = ['u_id', 'username', 'f_name', 'l_name', 'email', 'phone', 'password', 'address'];
 
     // Dates
     protected $useTimestamps = false;
@@ -39,13 +39,8 @@ class UserModel extends Model
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
 
-    public function getUserByUsername($username)
+    public function countUsers() // FETCH AND DISPLAY TOTAL USERS IN THE DATABASE
     {
-        return $this->where('username', $username)->first();
-    }
-
-    public function verifyPassword($password, $hashedPassword)
-    {
-        return $password === $hashedPassword;
+        return $this->db->table('users')->countAllResults();
     }
 }

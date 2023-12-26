@@ -27,7 +27,7 @@ class LoginController extends BaseController
         $user = $this->userModel->getUserByUsername($username);
 
         if ($user && $this->userModel->verifyPassword($password, $user['password'])) {
-            return redirect()->to(site_url('welcome'));
+            return redirect()->to(site_url('dashboard'));
         }
         session()->setFlashdata('error', 'Invalid username or password.');
         return redirect()->to(site_url('index'));

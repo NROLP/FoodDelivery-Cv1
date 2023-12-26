@@ -4,16 +4,16 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class UserModel extends Model
+class OrderModel extends Model
 {
     protected $DBGroup          = 'default';
-    protected $table            = 'login_reg';
-    protected $primaryKey       = 'id';
+    protected $table            = 'user_orders';
+    protected $primaryKey       = 'o_id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['username', 'password'];
+    protected $allowedFields    = ['o_id', 'u_id', 'd_id', 'd_name', 'quantity', 'price', 'status', 'date', 'success-date', 'r_id'];
 
     // Dates
     protected $useTimestamps = false;
@@ -39,13 +39,31 @@ class UserModel extends Model
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
 
-    public function getUserByUsername($username)
+    public function countOrders()
     {
-        return $this->where('username', $username)->first();
+        return $this->db->table('user_orders')->countAllResults();
     }
 
-    public function verifyPassword($password, $hashedPassword)
+    public function countPendingOrders()
     {
-        return $password === $hashedPassword;
+        $builder = $this->db->table('user_orders');
+        $builder->where('status', null);
+
+        return $builder->countAllResults();
     }
+    
+    public function countDeliveredOrders() {
+        $builder = $this->db->table('user_orders');
+        $builder->where('status', 'closed');
+
+        return $builder->countAllResults();
+    }
+
+    public function countRejectedOrders() {
+        $builder = $this->db->table('user_orders');
+        $builder->where('status', 'rejected');
+
+        return $builder->countAllResults();
+    }
+    
 }

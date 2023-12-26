@@ -14,6 +14,7 @@
 </head>
 
 <body>
+
     <div id="myModal">
         <div class="modal-dialog modal-login">
             <div class="modal-content">
@@ -21,7 +22,7 @@
                     <div class="avatar">
                         <img src="image\icon_1.png" alt="Avatar">
                     </div>
-                    <h4 class="modal-title">Welcome to <br>Food-Dala</h4>
+                    <h4 class="modal-title">Welcome to <br>Food-Dala <br><b>ADMIN PANEL</b></h4>
                 </div>
 
                 <div class="modal-body">
@@ -55,6 +56,7 @@
             </div>
         </div>
     </div>
+    
 </body>
 
 </html>
